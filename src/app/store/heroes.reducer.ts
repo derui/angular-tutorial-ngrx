@@ -1,13 +1,8 @@
 import { ActionTypes, Union } from "./heroes.action";
-import { Hero } from "./hero";
-import { HEROES } from "./mock-heroes";
+import { HEROES } from "../mock-heroes";
+import { HeroState } from "./app.state";
 
-export type State = {
-  allHeroes: Hero[];
-  searched: Hero[];
-};
-
-export const initialState: State = {
+export const initialState: HeroState = {
   allHeroes: HEROES,
   searched: []
 };
@@ -35,6 +30,10 @@ export function heroesReducer(state = initialState, action: Union) {
         v.name.startsWith(action.payload.term)
       );
       return { ...state, searched };
+    }
+    case ActionTypes.Delete: {
+      const allHeroes = state.allHeroes.filter(v => v.id !== action.payload.id);
+      return { ...state, allHeroes };
     }
     default:
       return state;

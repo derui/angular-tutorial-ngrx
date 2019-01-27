@@ -3,7 +3,8 @@ import { Action } from "@ngrx/store";
 export enum ActionTypes {
   Save = "Heroes Save",
   Search = "Heroes Search",
-  Add = "Heroes Add"
+  Add = "Heroes Add",
+  Delete = "Heroes Delete"
 }
 
 export class Save implements Action {
@@ -24,4 +25,9 @@ export class Search implements Action {
   constructor(public payload: { term: string }) {}
 }
 
-export type Union = Save | Add | Search;
+export class Delete implements Action {
+  readonly type = ActionTypes.Delete;
+
+  constructor(public payload: { id: number }) {}
+}
+export type Union = Save | Add | Search | Delete;

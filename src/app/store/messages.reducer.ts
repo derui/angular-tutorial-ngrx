@@ -1,10 +1,7 @@
 import { ActionTypes, Union } from "./messages.action";
+import { MessageState } from "./app.state";
 
-export type State = {
-  messages: string[];
-};
-
-export const initialState: State = {
+export const initialState: MessageState = {
   messages: []
 };
 
