@@ -27,7 +27,7 @@ export function heroesReducer(state = initialState, action: Union) {
     }
     case ActionTypes.Search: {
       const searched = state.allHeroes.filter(v =>
-        v.name.startsWith(action.payload.term)
+        v.name.includes(action.payload.term)
       );
       return { ...state, searched };
     }

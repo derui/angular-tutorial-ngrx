@@ -1,18 +1,24 @@
 import { Injectable } from "@angular/core";
+import { Store, select } from "@ngrx/store";
+import { AppState } from "./store/app.state";
+import { selectMessages } from "./store/messages.selector";
+import { Add, Clear } from "./store/messages.action";
 
 @Injectable({
   providedIn: "root"
 })
 export class MessageService {
-  messages: string[] = [];
-
   add(message: string) {
-    this.messages.push(message);
+    this.store.dispatch(new Add({ message }));
+  }
+
+  getMessages() {
+    return this.store.pipe(select(selectMessages));
   }
 
   clear() {
-    this.messages = [];
+    this.store.dispatch(new Clear());
   }
 
-  constructor() {}
+  constructor(private store: Store<AppState>) {}
 }

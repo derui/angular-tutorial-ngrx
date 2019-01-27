@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 
 import { MessageService } from "../message.service";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-messages",
@@ -8,7 +9,14 @@ import { MessageService } from "../message.service";
   styleUrls: ["./messages.component.css"]
 })
 export class MessagesComponent implements OnInit {
-  constructor(public messageService: MessageService) {}
+  messages$: Observable<string[]>;
+  constructor(private messageService: MessageService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.messages$ = this.messageService.getMessages();
+  }
+
+  clear() {
+    this.messageService.clear();
+  }
 }
